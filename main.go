@@ -110,7 +110,7 @@ func getCbrData() {
 		log.Fatalf("Read body: %v", err)
 	}
 
-	for i, valute := range query.ValuteList {
-		dValute[valute.CharCode] = &query.ValuteList[i]
+	for i, _ := range query.ValuteList {
+		dValute[query.ValuteList[i].CharCode] = &query.ValuteList[i]
 	}
 }
