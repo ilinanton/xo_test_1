@@ -30,32 +30,33 @@ func main() {
 		log.Fatalln("Данные по валюте", currency, "отсутствуют")
 	}
 
-	fmt.Println("Входные параметры: currency -", currency, dValute[currency].Name, " value -", value)
+	fmt.Println("Входные параметры: currency -", currency, dValute[currency].Name, " value -", functions.Float64ToString(value))
 
 	var floatValue float64
-	var floatNominal float64
 	var err error
 
 	floatValue, err = functions.StringToFloat64(dValute[currency].Value)
 	functions.ChErr(err)
 	rub := value * floatValue
 
-	floatValue, err = functions.StringToFloat64(dValute["EUR"].Value)
-	functions.ChErr(err)
-
-	floatNominal, err = functions.StringToFloat64(dValute["EUR"].Nominal)
-	functions.ChErr(err)
-
-	eur := rub / floatValue * floatNominal
-
-	floatValue, err = functions.StringToFloat64(dValute["INR"].Value)
-	functions.ChErr(err)
-
-	floatNominal, err = functions.StringToFloat64(dValute["INR"].Nominal)
-	functions.ChErr(err)
-	inr := rub / floatValue * floatNominal
+	eur := getValue(dValute["EUR"], rub)
+	inr := getValue(dValute["INR"], rub)
 
 	fmt.Println("RUB:", functions.Float64ToString(rub), "/EUR:", functions.Float64ToString(eur), "/INR:", functions.Float64ToString(inr))
+}
+
+func getValue(valute *structs.Valute, countRub float64) float64 {
+	var floatValue float64
+	var floatNominal float64
+	var err error
+
+	floatValue, err = functions.StringToFloat64(valute.Value)
+	functions.ChErr(err)
+
+	floatNominal, err = functions.StringToFloat64(valute.Nominal)
+	functions.ChErr(err)
+
+	return countRub / floatValue * floatNominal
 }
 
 func appendBaseValute() {
