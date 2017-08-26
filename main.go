@@ -11,8 +11,8 @@ import (
 
 	"golang.org/x/net/html/charset"
 
-	"xo_test_1/functions"
-	"xo_test_1/structs"
+	"github.com/ilinanton/xo_test_1/functions"
+	"github.com/ilinanton/xo_test_1/structs"
 )
 
 var currency string
