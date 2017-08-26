@@ -6,3 +6,4 @@ go:
 
 install:
   - go get golang.org/x/net/html/charset
+  - go get github.com/ilinanton/xo_test_1
