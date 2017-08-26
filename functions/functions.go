@@ -2,6 +2,7 @@ package functions
 
 import (
 	"log"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -17,6 +18,7 @@ func Float64ToString(flo float64) string {
 
 func ChErr(err error) {
 	if err != nil {
-		log.Fatalln(err)
+		log.Printf("%v", err)
+		os.Exit(1)
 	}
 }

@@ -27,7 +27,8 @@ func main() {
 	_, ok := dValute[currency]
 
 	if !ok {
-		log.Fatalln("Данные по валюте", currency, "отсутствуют")
+		log.Println ("Данные по валюте", currency, "отсутствуют")
+		os.Exit(1)
 	}
 
 	fmt.Println("Входные параметры: currency -", currency, dValute[currency].Name, " value -", functions.Float64ToString(value))
@@ -71,7 +72,8 @@ func appendBaseValute() {
 
 func initParams() {
 	if len(os.Args) != 3 {
-		log.Fatalln("Ошибка количества параметров!")
+		log.Printf("Ошибка количества параметров!")
+		os.Exit(1)
 	}
 
 	flag.StringVar(&currency, "currency", "", "Валюта")
@@ -85,7 +87,8 @@ func initParams() {
 	value, err = functions.StringToFloat64(tempValue)
 
 	if err != nil {
-		log.Fatalln("Ошибка конвертации количества!")
+		log.Printf("Ошибка конвертации количества!")
+		os.Exit(1)
 	}
 }
 
@@ -94,12 +97,14 @@ func getCbrData() {
 
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatalf("GET error: %v", err)
+		log.Printf("GET error: %v", err)
+		os.Exit(1)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		log.Fatalf("Status error: %v", resp.StatusCode)
+		log.Printf("Status error: %v", resp.StatusCode)
+		os.Exit(1)
 	}
 
 	var query structs.Query
@@ -108,7 +113,8 @@ func getCbrData() {
 	decoder.CharsetReader = charset.NewReaderLabel
 	err = decoder.Decode(&query)
 	if err != nil {
-		log.Fatalf("Read body: %v", err)
+		log.Printf("Read body: %v", err)
+		os.Exit(1)
 	}
 
 	for i, _ := range query.ValuteList {
