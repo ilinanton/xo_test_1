@@ -4,6 +4,4 @@ go:
   - 1.9
   - master
 
-install:
-  - go get golang.org/x/net/html/charset
-  - go get github.com/ilinanton/xo_test_1
+install: make get-deps
