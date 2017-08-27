@@ -20,6 +20,10 @@ var value float64
 var dValute = make(map[string]*structs.Valute)
 
 func main() {
+	defer func() {
+		log.Print("test")
+	}()
+
 	appendBaseValute()
 	initParams()
 	getCbrData()
@@ -27,7 +31,7 @@ func main() {
 	_, ok := dValute[currency]
 
 	if !ok {
-		log.Println ("Данные по валюте", currency, "отсутствуют")
+		log.Println("Данные по валюте", currency, "отсутствуют")
 		os.Exit(1)
 	}
 
